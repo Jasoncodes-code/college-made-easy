@@ -20,6 +20,7 @@ The AI connects through getKey().
 - Version 1 searches for multiple colleges by major.
 - Filters are included for state, cost, and size.
 - The server keeps the AI key away from the page.
+- The local server rereads the current `.env` values, so filling them in does not leave stale placeholders running.
 - The last search saves in the browser.
 - Saves on this computer only for now.
 

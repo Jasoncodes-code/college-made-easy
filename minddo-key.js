@@ -18,22 +18,32 @@ class MindDoKeyError extends Error {
 
 function loadLocalEnv() {
   // Vercel has no committed .env file; online values must come from its settings.
-  if (process.env.VERCEL === '1') return;
+  if (process.env.VERCEL === '1') return {};
   const envPath = path.join(process.cwd(), '.env');
-  if (!fs.existsSync(envPath)) return;
+  if (!fs.existsSync(envPath)) return {};
+
+  const localValues = {};
 
   for (const line of fs.readFileSync(envPath, 'utf8').split(/\r?\n/)) {
     const match = line.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*?)\s*$/);
-    if (match && process.env[match[1]] === undefined) {
-      process.env[match[1]] = match[2].replace(/^['"]|['"]$/g, '');
+    if (match) {
+      const value = match[2].replace(/^['"]|['"]$/g, '');
+      localValues[match[1]] = value;
+      if (process.env[match[1]] === undefined || process.env[match[1]] === 'paste-here') {
+        process.env[match[1]] = value;
+      }
     }
   }
+
+  return localValues;
 }
 
 function getConfig() {
-  loadLocalEnv();
-  const url = (process.env.KEYGEN_URL || '').replace(/\/+$/, '');
-  const token = process.env.KEYGEN_TOKEN || '';
+  const localValues = loadLocalEnv();
+  const urlValue = process.env.VERCEL === '1' ? process.env.KEYGEN_URL : (localValues.KEYGEN_URL || process.env.KEYGEN_URL);
+  const tokenValue = process.env.VERCEL === '1' ? process.env.KEYGEN_TOKEN : (localValues.KEYGEN_TOKEN || process.env.KEYGEN_TOKEN);
+  const url = (urlValue || '').replace(/\/+$/, '');
+  const token = tokenValue || '';
 
   if (!url || url === 'paste-here' || !token || token === 'paste-here') {
     throw new MindDoKeyError(
