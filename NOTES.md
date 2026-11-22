@@ -13,7 +13,7 @@ The AI connects through getKey().
 
 ## How to run
 1. Put your MindDo values in `.env`.
-2. Run `node server.js` from the project folder.
+2. Run `/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node server.js` from the project folder.
 3. Open http://localhost:3000.
 
 ## What is done
