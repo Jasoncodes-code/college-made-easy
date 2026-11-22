@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>College made easy</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <p class="eyebrow">College made easy</p>
+        <h1>Find colleges that fit your major.</h1>
+        <p class="lead">Compare major-specific choices in one simple place instead of searching many confusing college websites.</p>
+      </header>
+
+      <section class="card search-card" aria-labelledby="search-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Start here</p>
+            <h2 id="search-title">What do you want to study?</h2>
+          </div>
+          <span class="badge">AI-powered comparison</span>
+        </div>
+        <form id="search-form">
+          <label for="major">Major</label>
+          <div class="search-row">
+            <input id="major" name="major" placeholder="Try marketing, nursing, or computer science" autocomplete="off" required>
+            <button id="check-button" type="submit">Check</button>
+          </div>
+          <div class="filters" aria-label="College filters">
+            <label>State<select id="state"><option>Any</option><option>California</option><option>New York</option><option>Texas</option><option>Florida</option></select></label>
+            <label>Cost<select id="cost"><option>Any</option><option>Lower cost</option><option>Medium cost</option><option>Higher cost</option></select></label>
+            <label>Size<select id="size"><option>Any</option><option>Small</option><option>Medium</option><option>Large</option></select></label>
+          </div>
+        </form>
+        <p class="privacy-note">Only your major and filters are sent to the server. Never enter passwords or private information.</p>
+      </section>
+
+      <section id="status" class="status" aria-live="polite"></section>
+      <section id="answer" class="card answer-card" aria-live="polite">
+        <div class="empty-state">
+          <span class="empty-icon">✦</span>
+          <h2>Your college matches will appear here.</h2>
+          <p>We’ll look for multiple schools that actually offer your major, then make the comparison easier to understand.</p>
+        </div>
+      </section>
+
+      <p id="save-note" class="save-note"></p>
+    </main>
+    <script src="/storage.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
