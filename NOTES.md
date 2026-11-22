@@ -23,6 +23,12 @@ The AI connects through getKey().
 - The last search saves in the browser.
 - Saves on this computer only for now.
 
+## Put online with Vercel
+- Vercel serves the files in `public/` as the page.
+- Vercel runs `api/ask.js` as the small server function; it calls `getKey()` and keeps the AI key off the page.
+- In Vercel Project Settings → Environment Variables, add `KEYGEN_URL` and `KEYGEN_TOKEN` for the environments you use (Preview and Production).
+- No build command or extra Vercel setting is needed for this project.
+
 ## What is next
 - Test with students and improve the comparison layout.
 - Add later features only after the MVP is demonstrated.

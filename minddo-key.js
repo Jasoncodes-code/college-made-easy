@@ -17,6 +17,8 @@ class MindDoKeyError extends Error {
 }
 
 function loadLocalEnv() {
+  // Vercel has no committed .env file; online values must come from its settings.
+  if (process.env.VERCEL === '1') return;
   const envPath = path.join(process.cwd(), '.env');
   if (!fs.existsSync(envPath)) return;
 
