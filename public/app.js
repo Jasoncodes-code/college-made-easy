@@ -74,7 +74,21 @@
         ${college.officialUrl ? `<a href="${safeUrl(college.officialUrl)}" target="_blank" rel="noreferrer">Check official college website ↗</a>` : '<span class="needs-checking">Official link needs checking</span>'}
       </article>`).join('');
 
-    return `<div class="answer-content"><p class="eyebrow">Recommended matches</p><h2>Compare colleges side by side</h2><p class="answer-summary">${escapeHtml(parsed.summary || 'These matches are based on your major and filters.')}</p><div class="college-grid">${cards}</div><p class="disclaimer">Check each program on its official college website before making a decision.</p></div>`;
+    return `<div class="answer-content"><p class="eyebrow">Recommended matches</p><h2>Compare colleges side by side</h2><p class="answer-summary">${escapeHtml(parsed.summary || 'These matches are based on your major and filters.')}</p><div class="college-grid">${cards}</div>${renderComparisonChart(parsed.colleges.slice(0, 3))}<p class="disclaimer">Check each program on its official college website before making a decision.</p></div>`;
+  }
+
+  function renderComparisonChart(colleges) {
+    const rows = [
+      ['College', (college) => `<strong>${escapeHtml(college.name || 'College option')}</strong><br><span class="table-muted">${escapeHtml(college.location || 'Location needs checking')}</span>`],
+      ['Major', (college) => escapeHtml(college.major || 'Needs checking')],
+      ['Cost', (college) => escapeHtml(college.cost || 'Needs checking')],
+      ['Size', (college) => escapeHtml(college.size || 'Needs checking')],
+      ['Benefits', (college) => {
+        const benefits = Array.isArray(college.benefits) && college.benefits.length ? college.benefits : (Array.isArray(college.bullets) ? college.bullets.slice(0, 2) : ['Needs checking']);
+        return `<ul class="table-benefits">${benefits.map((benefit) => `<li>${escapeHtml(benefit)}</li>`).join('')}</ul>`;
+      }],
+    ];
+    return `<section class="comparison-section" aria-labelledby="comparison-title"><p class="eyebrow">Quick comparison</p><h3 id="comparison-title">What each college offers</h3><div class="comparison-table-wrap"><table class="comparison-table"><thead><tr><th scope="col">Compare</th>${colleges.map((college) => `<th scope="col">${escapeHtml(college.name || 'College option')}</th>`).join('')}</tr></thead><tbody>${rows.map(([label, render]) => `<tr><th scope="row">${label}</th>${colleges.map((college) => `<td>${render(college)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></section>`;
   }
 
   function parseJsonAnswer(rawAnswer) {
