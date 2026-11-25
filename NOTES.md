@@ -29,6 +29,7 @@ The AI connects through getKey().
 ## Put online with Vercel
 - Vercel serves the files in `public/` as the page.
 - Vercel runs `api/ask.js` as the small server function; it calls `getKey()` and keeps the AI key off the page.
+- `vercel.json` includes `BRIEF.md` and `NOTES.md` inside that function so the deployed AI instructions and model setting are available online.
 - In Vercel Project Settings → Environment Variables, add `KEYGEN_URL` and `KEYGEN_TOKEN` for the environments you use (Preview and Production).
 - No build command or extra Vercel setting is needed for this project.
 
