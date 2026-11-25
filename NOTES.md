@@ -20,6 +20,8 @@ The AI connects through getKey().
 - Version 1 searches for multiple colleges by major.
 - The comparison view shows three AI-picked colleges side by side.
 - The comparison view includes a chart with each college's own pros and cons.
+- AI instructions now handle typos, unclear interests, conflicting filters, off-topic questions, and unsafe requests safely.
+- The five tricky test categories were checked locally without exposing their answers.
 - Filters are included for state, cost, and size.
 - Filters were verified with California, lower cost, and small-size Computer Science results.
 - The server keeps the AI key away from the page.

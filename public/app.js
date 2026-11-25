@@ -63,6 +63,10 @@
       return `<div class="answer-content"><p class="eyebrow">Recommended matches</p><div class="ai-answer">${escapeHtml(rawAnswer)}</div><p class="disclaimer">Check each program on its official college website before making a decision.</p></div>`;
     }
 
+    if (parsed.colleges.length === 0) {
+      return `<div class="answer-content"><p class="eyebrow">Next step</p><h2>Let’s narrow that down</h2><p class="answer-summary">${escapeHtml(parsed.summary || 'Tell me a college major or ask about comparing colleges.')}</p></div>`;
+    }
+
     const cards = parsed.colleges.slice(0, 3).map((college) => `
       <article class="college-card">
         <p class="card-label">Recommended match</p>
