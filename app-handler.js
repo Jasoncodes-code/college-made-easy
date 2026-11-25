@@ -6,15 +6,31 @@ const { withKey } = require('./minddo-key');
 
 const ROOT = __dirname;
 const PUBLIC_DIR = path.join(ROOT, 'public');
+const DEFAULT_MODEL = 'gpt-5.6-luna';
+const DEFAULT_INSTRUCTIONS = `## My AI’s instructions
+- Find colleges for high school students based on their chosen major.
+- Give multiple college options, never just one.
+- Only recommend a college when its program matches the student’s major.
+- Use bullet points for each school and put recommendations first.
+- Do not invent facts. Mark uncertain details as Needs checking and direct students to official college websites.
+- Do not ask for passwords or private information.`;
 
 function readFile(name) {
-  return fs.readFileSync(path.join(ROOT, name), 'utf8');
+  try {
+    return fs.readFileSync(path.join(ROOT, name), 'utf8');
+  } catch (error) {
+    // Vercel normally includes these through vercel.json. The fallback keeps
+    // an incomplete deployment from failing with a raw ENOENT error.
+    if (error.code === 'ENOENT' && name === 'NOTES.md') return `OpenAI model available: ${DEFAULT_MODEL}`;
+    if (error.code === 'ENOENT' && name === 'BRIEF.md') return DEFAULT_INSTRUCTIONS;
+    throw error;
+  }
 }
 
 function getModel() {
   const notes = readFile('NOTES.md');
   const match = notes.match(/OpenAI model available:\s*([^\s]+)/i);
-  return match ? match[1] : 'gpt-4o-mini';
+  return match ? match[1] : DEFAULT_MODEL;
 }
 
 function getSystemInstructions() {
