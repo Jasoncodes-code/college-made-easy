@@ -21,6 +21,7 @@ The AI connects through getKey().
 - The comparison view shows three AI-picked colleges side by side.
 - The comparison view includes a chart with each college's own pros and cons.
 - Filters are included for state, cost, and size.
+- Filters were verified with California, lower cost, and small-size Computer Science results.
 - The server keeps the AI key away from the page.
 - The local server rereads the current `.env` values, so filling them in does not leave stale placeholders running.
 - The last search saves in the browser.
