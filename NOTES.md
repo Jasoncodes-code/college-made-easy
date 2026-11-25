@@ -19,7 +19,7 @@ The AI connects through getKey().
 ## What is done
 - Version 1 searches for multiple colleges by major.
 - The comparison view shows three AI-picked colleges side by side.
-- The comparison view includes a chart with each college's own benefits.
+- The comparison view includes a chart with each college's own pros and cons.
 - Filters are included for state, cost, and size.
 - The server keeps the AI key away from the page.
 - The local server rereads the current `.env` values, so filling them in does not leave stale placeholders running.

@@ -56,7 +56,7 @@ async function askOpenAI({ major, filters }) {
   const userMessage = [
     `Find colleges for a high school student interested in this major: ${major}`,
     `Filters: state=${filters.state || 'Any'}, cost=${filters.cost || 'Any'}, size=${filters.size || 'Any'}.`,
-    'Return JSON only in this shape: {"summary":"short summary","colleges":[{"name":"","location":"","major":"","cost":"","size":"","officialUrl":"","benefits":["one benefit unique to this school","another benefit unique to this school"],"bullets":["recommendation reason","major/program fact","important thing to verify"]}]}. Include two or three options when possible, put recommendations first, and give each school its own specific benefits. Do not invent facts; use "Needs checking" when unsure.',
+    'Return JSON only in this shape: {"summary":"short summary","colleges":[{"name":"","location":"","major":"","cost":"","size":"","officialUrl":"","pros":["one specific advantage of this school"],"cons":["one specific tradeoff or thing to check"],"bullets":["recommendation reason","major/program fact","important thing to verify"]}]}. Include two or three options when possible, put recommendations first, and give every school its own honest pros and cons. Do not invent facts; use "Needs checking" when unsure.',
   ].join('\n');
 
   return withKey(async (apiKey) => {

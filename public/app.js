@@ -83,12 +83,15 @@
       ['Major', (college) => escapeHtml(college.major || 'Needs checking')],
       ['Cost', (college) => escapeHtml(college.cost || 'Needs checking')],
       ['Size', (college) => escapeHtml(college.size || 'Needs checking')],
-      ['Benefits', (college) => {
-        const benefits = Array.isArray(college.benefits) && college.benefits.length ? college.benefits : (Array.isArray(college.bullets) ? college.bullets.slice(0, 2) : ['Needs checking']);
-        return `<ul class="table-benefits">${benefits.map((benefit) => `<li>${escapeHtml(benefit)}</li>`).join('')}</ul>`;
-      }],
+      ['Pros', (college) => renderList(college.pros || college.benefits, college.bullets)],
+      ['Cons', (college) => renderList(college.cons, ['Needs checking']),],
     ];
     return `<section class="comparison-section" aria-labelledby="comparison-title"><p class="eyebrow">Quick comparison</p><h3 id="comparison-title">What each college offers</h3><div class="comparison-table-wrap"><table class="comparison-table"><thead><tr><th scope="col">Compare</th>${colleges.map((college) => `<th scope="col">${escapeHtml(college.name || 'College option')}</th>`).join('')}</tr></thead><tbody>${rows.map(([label, render]) => `<tr><th scope="row">${label}</th>${colleges.map((college) => `<td>${render(college)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></section>`;
+  }
+
+  function renderList(primary, fallback) {
+    const items = Array.isArray(primary) && primary.length ? primary : (Array.isArray(fallback) && fallback.length ? fallback : ['Needs checking']);
+    return `<ul class="table-benefits">${items.slice(0, 3).map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
   }
 
   function parseJsonAnswer(rawAnswer) {
